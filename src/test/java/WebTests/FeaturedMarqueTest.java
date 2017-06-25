@@ -3,8 +3,12 @@ package WebTests;
 import Components.FeaturedMarque;
 import Data.ConfigProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -19,6 +23,16 @@ import java.io.IOException;
 public class FeaturedMarqueTest extends MainTestWeb{
 
     public FeaturedMarque featuredMarque;
+
+    /*@Test
+    @Parameters({"x","y"})
+    public void setSize(@Optional("1024") String x, @Optional("768") String y){
+        int w = Integer.parseInt(x);
+        int h = Integer.parseInt(y);
+        Dimension d = new Dimension(w, h);
+        System.out.println(w + " " + h);
+        driver.manage().window().setSize(d);
+    }*/
 
     @Test
     public void bannerTest()

@@ -23,7 +23,8 @@ public class MainMethods extends UserData {
     public static final Logger logger = Logger.getLogger(MainMethods.class.getName());
 
     public void setSize(int x, int y) {
-        driver.manage().window().setSize(new Dimension(x, y));
+        Dimension d = new Dimension(x, y);
+        driver.manage().window().setSize(d);
     }
 
 

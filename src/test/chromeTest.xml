@@ -5,10 +5,35 @@
     <test name="Large1200_1599px">
         <parameter name="x" value="1200"></parameter>
         <parameter name="y" value="1599"></parameter>
+        <groups>
+            <run>
+                <include name="Chrome"/>
+            </run>
+        </groups>
         <classes>
             <class name="WebTests.FeaturedMarqueTest">
                 <methods>
-                    <!--<include name="setSize"/>-->
+                    <include name="bannerTest"/>
+                    <include name="playButtonOpacityTest"/>
+                    <include name="videoContainerTest"/>
+                    <include name="videoContainerCloseTest"/>
+                    <include name="downButtonTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Medium992_1199px">
+        <parameter name="x" value="992"></parameter>
+        <parameter name="y" value="1199"></parameter>
+        <groups>
+            <run>
+                <include name="Chrome"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="WebTests.FeaturedMarqueTest">
+                <methods>
                     <include name="bannerTest"/>
                     <include name="playButtonOpacityTest"/>
                     <include name="videoContainerTest"/>
