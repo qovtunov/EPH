@@ -24,6 +24,7 @@ public class MainTestWeb extends MainMethods {
     File driverChromeMac = new File(dir, "chromedriverMac");
 
     File driverFirefoxLinux = new File(dir, "geckodriverLinux64");
+    File driverFirefoxMac = new File(dir, "geckodriverMac");
 
     File driverIEWin = new File(dir, "IEDriverServer.exe");
 
@@ -53,7 +54,7 @@ public class MainTestWeb extends MainMethods {
         }else if (operationSystem.contains("nux") || operationSystem.contains("nix")) {
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxLinux));
         }else if (operationSystem.contains("mac")) {
-            System.setProperty("webdriver.gecko.driver", String.valueOf(driverChromeMac));
+            System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxMac));
         }
         FirefoxOptions options = new FirefoxOptions().setLegacy(true);
 
