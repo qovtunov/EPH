@@ -3,6 +3,7 @@ package WebTests;
 import Data.ConfigProperties;
 import Driver.MainMethods;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,6 +13,7 @@ import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class MainTestWeb extends MainMethods {
 
@@ -23,6 +25,7 @@ public class MainTestWeb extends MainMethods {
     File driverChromeLinux = new File(dir, "chromedriverLinux64");
     File driverChromeMac = new File(dir, "chromedriverMac");
 
+    File driverFirefoxWin = new File(dir, "geckodriver.exe");
     File driverFirefoxLinux = new File(dir, "geckodriverLinux64");
     File driverFirefoxMac = new File(dir, "geckodriverMac");
 
@@ -50,13 +53,13 @@ public class MainTestWeb extends MainMethods {
         logger.info("[TEST STARTED]");
         logger.info("OS: "+ operationSystem);
         if (operationSystem.contains("win")){
-            System.setProperty("webdriver.gecko.driver", String.valueOf(driverChromeWin));
+            System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxWin));
         }else if (operationSystem.contains("nux") || operationSystem.contains("nix")) {
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxLinux));
         }else if (operationSystem.contains("mac")) {
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxMac));
         }
-        FirefoxOptions options = new FirefoxOptions().setLegacy(true);
+        FirefoxOptions options = new FirefoxOptions().setLegacy(true).setLogLevel(Level.OFF);
 
         driver = new FirefoxDriver(options);
 
@@ -65,7 +68,7 @@ public class MainTestWeb extends MainMethods {
 
     @BeforeTest(groups = "InternetExplorer")
 
-    public void  DriverIE(String baseUrl) throws InterruptedException {
+    public void  setUpDriverIE(String baseUrl) throws InterruptedException {
         logger.info("[TEST STARTED]");
         logger.info("OS: "+ operationSystem);
         System.setProperty("webdriver.ie.driver", String.valueOf(driverIEWin));
@@ -78,8 +81,6 @@ public class MainTestWeb extends MainMethods {
     @BeforeTest(groups = {"Chrome", "Firefox", "InternetExplorer"})
     @Parameters({"x","y"})
     public void setSize(@Optional("1024") int x, @Optional("768") int y){
-        driver.navigate().refresh();
-        driver.manage().window().setPosition(new Point(0,0));
         Dimension d = new Dimension(x, y);
         logger.info("DIMENSION IS: " + x + "x" + y + "px" + "\n");
         driver.manage().window().setSize(d);
