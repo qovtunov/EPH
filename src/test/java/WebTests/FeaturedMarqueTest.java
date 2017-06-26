@@ -3,12 +3,8 @@ package WebTests;
 import Components.FeaturedMarque;
 import Data.ConfigProperties;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -20,7 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class FeaturedMarqueTest extends MainTestWeb{
+public class FeaturedMarqueTest extends MainTestWeb {
 
     public FeaturedMarque featuredMarque;
 
@@ -35,34 +31,33 @@ public class FeaturedMarqueTest extends MainTestWeb{
     }*/
 
     @Test
-    public void bannerTest()
-    {
+    public void componentExists() {
         featuredMarque = new FeaturedMarque(driver);
         Assert.assertTrue(isElementVisible(featuredMarque.banner));  //component exists or not
     }
 
     @Test
-    public void playButtonOpacityTest(){
+    public void playButtonOpacity() {
         hoverOverElement(featuredMarque.playButton);
         Assert.assertEquals(featuredMarque.playButton.getCssValue("opacity"), "0.6"); // opacity check
     }
 
     @Test
-    public void videoContainerTest(){
+    public void videoContainer() {
         clickElement(featuredMarque.playButton);
         Assert.assertTrue(isElementVisible(featuredMarque.videoContainer)); // open player
     }
 
     @Test
-    public void videoContainerCloseTest() {
+    public void videoContainerClose() {
         clickElement(featuredMarque.videoContainerCloseButton);
         Assert.assertTrue(isElementNotVisible(featuredMarque.videoContainer)); // close player
     }
 
     @Test
-    public void downButtonTest(){
+    public void downButton() {
         clickElement(featuredMarque.downButton);
-        Assert.assertEquals(featuredMarque.downButton.getAttribute("href"), ConfigProperties.getProperty("baseUrl")+'#'); //down arrow check
+        Assert.assertEquals(featuredMarque.downButton.getAttribute("href"), ConfigProperties.getProperty("baseUrl") + '#'); //down arrow check
 
     }
 
@@ -140,7 +135,7 @@ public class FeaturedMarqueTest extends MainTestWeb{
         WebElement webElement = driver.findElement(By.cssSelector("#content > div > div > div.featuredMarqueeComponent.parbase.section"));
 
         Screenshot screenshot = new AShot().takeScreenshot(driver, webElement);
-        ImageIO.write(screenshot.getImage(),"PNG",new File(System.getProperty("user.dir") +"/Screenshots/ElementScreenshot.png"));
+        ImageIO.write(screenshot.getImage(), "PNG", new File(System.getProperty("user.dir") + "/Screenshots/ElementScreenshot.png"));
         //Thread.sleep(2000);
     }
 
@@ -150,10 +145,9 @@ public class FeaturedMarqueTest extends MainTestWeb{
         WebElement logoImage = driver.findElement(By.cssSelector("#content > div > div > div.featuredMarqueeComponent.parbase.section"));
 
 
-
-        BufferedImage expectedImage = ImageIO.read(new File(System.getProperty("user.dir") +"/Screenshots/ElementScreenshot.png"));
+        BufferedImage expectedImage = ImageIO.read(new File(System.getProperty("user.dir") + "/Screenshots/ElementScreenshot.png"));
         Screenshot logoImageScreenshot = new AShot().takeScreenshot(driver, logoImage);
-        ImageIO.write(logoImageScreenshot.getImage(),"PNG",new File(System.getProperty("user.dir") +"/Screenshots/ElementScreenshotActual.png"));
+        ImageIO.write(logoImageScreenshot.getImage(), "PNG", new File(System.getProperty("user.dir") + "/Screenshots/ElementScreenshotActual.png"));
 
 
         BufferedImage actualImage = logoImageScreenshot.getImage();
@@ -163,11 +157,10 @@ public class FeaturedMarqueTest extends MainTestWeb{
 
         ImageDiffer imgDiff = new ImageDiffer();
         ImageDiff diff = imgDiff.makeDiff(actualImage, expectedImage);
-        Assert.assertFalse(diff.hasDiff(),"Images are Same");
+        Assert.assertFalse(diff.hasDiff(), "Images are Same");
         logger.info("NO DIFF");
 
     }
-
 
 
 }
