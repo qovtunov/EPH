@@ -13,7 +13,7 @@
         <classes>
             <class name="WebTests.FeaturedMarqueTest">
                 <methods>
-                    <include name="bannerTest"/>
+                    <include name="componentExists"/>
                     <include name="playButtonOpacityTest"/>
                     <include name="videoContainerTest"/>
                     <include name="videoContainerCloseTest"/>
@@ -34,7 +34,7 @@
         <classes>
             <class name="WebTests.FeaturedMarqueTest">
                 <methods>
-                    <include name="bannerTest"/>
+                    <include name="componentExists"/>
                     <include name="playButtonOpacityTest"/>
                     <include name="videoContainerTest"/>
                     <include name="videoContainerCloseTest"/>
