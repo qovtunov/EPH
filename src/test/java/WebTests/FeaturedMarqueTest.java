@@ -1,10 +1,14 @@
 package WebTests;
 
-import Data.ConfigProperties;
 import Components.FeaturedMarque;
+import Data.ConfigProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
@@ -20,7 +24,50 @@ public class FeaturedMarqueTest extends MainTestWeb{
 
     public FeaturedMarque featuredMarque;
 
+    /*@Test
+    @Parameters({"x","y"})
+    public void setSize(@Optional("1024") String x, @Optional("768") String y){
+        int w = Integer.parseInt(x);
+        int h = Integer.parseInt(y);
+        Dimension d = new Dimension(w, h);
+        System.out.println(w + " " + h);
+        driver.manage().window().setSize(d);
+    }*/
+
     @Test
+    public void bannerTest()
+    {
+        featuredMarque = new FeaturedMarque(driver);
+        Assert.assertTrue(isElementVisible(featuredMarque.banner));  //component exists or not
+    }
+
+    @Test
+    public void playButtonOpacityTest(){
+        hoverOverElement(featuredMarque.playButton);
+        Assert.assertEquals(featuredMarque.playButton.getCssValue("opacity"), "0.6"); // opacity check
+    }
+
+    @Test
+    public void videoContainerTest(){
+        clickElement(featuredMarque.playButton);
+        Assert.assertTrue(isElementVisible(featuredMarque.videoContainer)); // open player
+    }
+
+    @Test
+    public void videoContainerCloseTest() {
+        clickElement(featuredMarque.videoContainerCloseButton);
+        Assert.assertTrue(isElementNotVisible(featuredMarque.videoContainer)); // close player
+    }
+
+    @Test
+    public void downButtonTest(){
+        clickElement(featuredMarque.downButton);
+        Assert.assertEquals(featuredMarque.downButton.getAttribute("href"), ConfigProperties.getProperty("baseUrl")+'#'); //down arrow check
+
+    }
+
+
+   /* @Test
     public void Large1200_1599px() {
         featuredMarque = new FeaturedMarque(driver);
 
@@ -44,7 +91,7 @@ public class FeaturedMarqueTest extends MainTestWeb{
 
         //NEXT BREAKPOINT:
 
-        /*setSize(992, 768); //set size
+        *//*setSize(992, 768); //set size
         Assert.assertTrue(isElementVisible(featuredMarque.banner)); //checking that banner appeared
 
         // screenshot assert here
@@ -59,7 +106,7 @@ public class FeaturedMarqueTest extends MainTestWeb{
         Assert.assertTrue(isElementNotVisible(featuredMarque.videoContainer)); // close player
 
         clickElement(featuredMarque.downButton);
-        Assert.assertEquals(featuredMarque.downButton.getAttribute("href"), ConfigProperties.getProperty("baseUrl")+'#'); //down arrow check*/
+        Assert.assertEquals(featuredMarque.downButton.getAttribute("href"), ConfigProperties.getProperty("baseUrl")+'#'); //down arrow check*//*
 
     }
 
@@ -84,7 +131,7 @@ public class FeaturedMarqueTest extends MainTestWeb{
         clickElement(featuredMarque.downButton);
         Assert.assertEquals(featuredMarque.downButton.getAttribute("href"), ConfigProperties.getProperty("baseUrl")+'#'); //down arrow check
 
-    }
+    }*/
 
     @Test
     public void getScreenshot() throws IOException, InterruptedException {

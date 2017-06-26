@@ -2,11 +2,13 @@ package WebTests;
 
 import Data.ConfigProperties;
 import Driver.MainMethods;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,12 +17,17 @@ public class MainTestWeb extends MainMethods {
 
     String operationSystem = System.getProperty("os.name").toLowerCase();
 
+
     File dir = new File("src");
     File driverChromeWin = new File(dir, "chromedriver.exe");
     File driverChromeLinux = new File(dir, "chromedriverLinux64");
     File driverChromeMac = new File(dir, "chromedriverMac");
 
-    @BeforeTest
+    File driverFirefoxLinux = new File(dir, "geckodriverLinux64");
+
+    File driverIEWin = new File(dir, "IEDriverServer.exe");
+
+    @BeforeSuite(groups = "Chrome")
     public void setUpDriverChrome() throws IOException {
         logger.info("[TEST STARTED]");
         logger.info("OS: "+ operationSystem);
@@ -37,7 +44,47 @@ public class MainTestWeb extends MainMethods {
         driver.navigate().to(ConfigProperties.getProperty("baseUrl"));
     }
 
-    @AfterTest
+    @BeforeSuite(groups = "Firefox")
+    public void setUpDriverFirefox() throws IOException {
+        logger.info("[TEST STARTED]");
+        logger.info("OS: "+ operationSystem);
+        if (operationSystem.contains("win")){
+            System.setProperty("webdriver.gecko.driver", String.valueOf(driverChromeWin));
+        }else if (operationSystem.contains("nux") || operationSystem.contains("nix")) {
+            System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxLinux));
+        }else if (operationSystem.contains("mac")) {
+            System.setProperty("webdriver.gecko.driver", String.valueOf(driverChromeMac));
+        }
+        FirefoxOptions options = new FirefoxOptions().setLegacy(true);
+
+        driver = new FirefoxDriver(options);
+
+        driver.navigate().to(ConfigProperties.getProperty("baseUrl"));
+    }
+
+    @BeforeTest(groups = "InternetExplorer")
+
+    public void  DriverIE(String baseUrl) throws InterruptedException {
+        logger.info("[TEST STARTED]");
+        logger.info("OS: "+ operationSystem);
+        System.setProperty("webdriver.ie.driver", String.valueOf(driverIEWin));
+
+        driver = new InternetExplorerDriver();
+
+        driver.navigate().to(ConfigProperties.getProperty("baseUrl"));
+    }
+
+    @BeforeTest(groups = {"Chrome", "Firefox", "InternetExplorer"})
+    @Parameters({"x","y"})
+    public void setSize(@Optional("1024") int x, @Optional("768") int y){
+        driver.navigate().refresh();
+        driver.manage().window().setPosition(new Point(0,0));
+        Dimension d = new Dimension(x, y);
+        logger.info("DIMENSION IS: " + x + "x" + y + "px" + "\n");
+        driver.manage().window().setSize(d);
+    }
+
+    @AfterSuite
     public void tearDown() throws InterruptedException {
         driver.quit();
         logger.info("[TEST FINISHED]" + "\n");
