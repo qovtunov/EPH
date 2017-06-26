@@ -14,10 +14,10 @@
             <class name="WebTests.FeaturedMarqueTest">
                 <methods>
                     <include name="componentExists"/>
-                    <include name="playButtonOpacityTest"/>
-                    <include name="videoContainerTest"/>
-                    <include name="videoContainerCloseTest"/>
-                    <include name="downButtonTest"/>
+                    <include name="playButtonOpacity"/>
+                    <include name="videoContainer"/>
+                    <include name="videoContainerClose"/>
+                    <include name="downButton"/>
                 </methods>
             </class>
         </classes>
@@ -35,10 +35,10 @@
             <class name="WebTests.FeaturedMarqueTest">
                 <methods>
                     <include name="componentExists"/>
-                    <include name="playButtonOpacityTest"/>
-                    <include name="videoContainerTest"/>
-                    <include name="videoContainerCloseTest"/>
-                    <include name="downButtonTest"/>
+                    <include name="playButtonOpacity"/>
+                    <include name="videoContainer"/>
+                    <include name="videoContainerClose"/>
+                    <include name="downButton"/>
                 </methods>
             </class>
         </classes>

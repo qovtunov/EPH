@@ -3,6 +3,7 @@ package WebTests;
 import Components.FeaturedMarque;
 import Data.ConfigProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -20,20 +21,11 @@ public class FeaturedMarqueTest extends MainTestWeb {
 
     public FeaturedMarque featuredMarque;
 
-    /*@Test
-    @Parameters({"x","y"})
-    public void setSize(@Optional("1024") String x, @Optional("768") String y){
-        int w = Integer.parseInt(x);
-        int h = Integer.parseInt(y);
-        Dimension d = new Dimension(w, h);
-        System.out.println(w + " " + h);
-        driver.manage().window().setSize(d);
-    }*/
-
     @Test
     public void componentExists() {
         featuredMarque = new FeaturedMarque(driver);
         Assert.assertTrue(isElementVisible(featuredMarque.banner));  //component exists or not
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", featuredMarque.banner);
     }
 
     @Test
