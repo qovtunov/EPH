@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
 
 import java.io.File;
@@ -49,23 +50,29 @@ public class MainTestWeb extends MainMethods {
     public void setUpDriverFirefox() throws IOException {
         logger.info("[TEST STARTED]");
         logger.info("OS: "+ operationSystem);
+
+        FirefoxOptions options = new FirefoxOptions();
+
         if (operationSystem.contains("win")){
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxWin));
+            options.setBinary("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
         }else if (operationSystem.contains("nux") || operationSystem.contains("nix")) {
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxLinux));
         }else if (operationSystem.contains("mac")) {
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxMac));
+            options.setBinary("PLEASE INSERT FF LAUNCHER HERE");
         }
-        FirefoxOptions options = new FirefoxOptions().setLegacy(true).setLogLevel(Level.OFF);
 
-        driver = new FirefoxDriver(options);
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setCapability("moz:firefoxOptions", options);
+
+        driver = new FirefoxDriver(capabilities);
 
         driver.navigate().to(ConfigProperties.getProperty("baseUrl"));
     }
 
-    @BeforeTest(groups = "InternetExplorer")
-
-    public void  setUpDriverIE(String baseUrl) throws InterruptedException {
+    @BeforeSuite(groups = "InternetExplorer")
+    public void  setUpDriverIE() throws InterruptedException {
         logger.info("[TEST STARTED]");
         logger.info("OS: "+ operationSystem);
         System.setProperty("webdriver.ie.driver", String.valueOf(driverIEWin));
@@ -80,7 +87,6 @@ public class MainTestWeb extends MainMethods {
     public void setBrowserSize(@Optional("1024") int x, @Optional("768") int y){
         logger.info("DIMENSION IS: " + x + "x" + y + "px" + "\n");
         setSize(x,y);
-        //driver.manage().window().setSize(new Dimension(x, y));
     }
 
     @AfterSuite(groups = {"Chrome", "Firefox", "InternetExplorer"})

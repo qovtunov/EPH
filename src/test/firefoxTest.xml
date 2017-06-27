@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="FirefoxTest">
+    <parameter name="browser" value="Firefox"></parameter>
     <test name="Large1200_1599px">
         <parameter name="x" value="1200"></parameter>
         <parameter name="y" value="1599"></parameter>
