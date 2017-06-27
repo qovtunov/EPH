@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="ChromeTest" preserve-order="true">
+    <parameter name="browser" value="Chrome"></parameter>
     <test name="Large1200_1599px" preserve-order="true">
         <parameter name="x" value="1200"></parameter>
         <parameter name="y" value="1599"></parameter>
