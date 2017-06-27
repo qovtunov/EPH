@@ -2,19 +2,10 @@ package WebTests;
 
 import Components.FeaturedMarque;
 import Data.ConfigProperties;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import ru.yandex.qatools.ashot.AShot;
-import ru.yandex.qatools.ashot.Screenshot;
-import ru.yandex.qatools.ashot.comparison.ImageDiff;
-import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class FeaturedMarqueTest extends MainTestWeb {
@@ -22,10 +13,14 @@ public class FeaturedMarqueTest extends MainTestWeb {
     public FeaturedMarque featuredMarque;
 
     @Test
-    public void componentExists() {
+    @Parameters({"x","y"})
+    public void componentExists(int x, int y) throws IOException, InterruptedException {
         featuredMarque = new FeaturedMarque(driver);
         Assert.assertTrue(isElementVisible(featuredMarque.banner));  //component exists or not
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", featuredMarque.banner);
+        scrollIntoView(featuredMarque.banner);
+        Thread.sleep(3000);
+        //getScreenshot(featuredMarque.banner, "/Screenshots/ElementScreenshot" + x + "x" + y + ".png");
+        compareScreenshots(featuredMarque.banner, "/Screenshots/ElementScreenshot" + x + "x" + y + ".png", "/Screenshots/ElementScreenshotActual" + x + "x" + y + ".png");
     }
 
     @Test
@@ -120,7 +115,7 @@ public class FeaturedMarqueTest extends MainTestWeb {
 
     }*/
 
-    @Test
+    /*@Test
     public void getScreenshot() throws IOException, InterruptedException {
 
         //Thread.sleep(10000);
@@ -129,9 +124,9 @@ public class FeaturedMarqueTest extends MainTestWeb {
         Screenshot screenshot = new AShot().takeScreenshot(driver, webElement);
         ImageIO.write(screenshot.getImage(), "PNG", new File(System.getProperty("user.dir") + "/Screenshots/ElementScreenshot.png"));
         //Thread.sleep(2000);
-    }
+    }*/
 
-    @Test
+   /* @Test
     public void compareScreenshots() throws IOException, InterruptedException {
 
         WebElement logoImage = driver.findElement(By.cssSelector("#content > div > div > div.featuredMarqueeComponent.parbase.section"));
@@ -152,7 +147,7 @@ public class FeaturedMarqueTest extends MainTestWeb {
         Assert.assertFalse(diff.hasDiff(), "Images are Same");
         logger.info("NO DIFF");
 
-    }
+    }*/
 
 
 }

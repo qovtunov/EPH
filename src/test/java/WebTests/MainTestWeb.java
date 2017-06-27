@@ -2,9 +2,6 @@ package WebTests;
 
 import Data.ConfigProperties;
 import Driver.MainMethods;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -80,13 +77,13 @@ public class MainTestWeb extends MainMethods {
 
     @BeforeTest(groups = {"Chrome", "Firefox", "InternetExplorer"})
     @Parameters({"x","y"})
-    public void setSize(@Optional("1024") int x, @Optional("768") int y){
-        Dimension d = new Dimension(x, y);
+    public void setBrowserSize(@Optional("1024") int x, @Optional("768") int y){
         logger.info("DIMENSION IS: " + x + "x" + y + "px" + "\n");
-        driver.manage().window().setSize(d);
+        setSize(x,y);
+        //driver.manage().window().setSize(new Dimension(x, y));
     }
 
-    @AfterSuite
+    @AfterSuite(groups = {"Chrome", "Firefox", "InternetExplorer"})
     public void tearDown() throws InterruptedException {
         driver.quit();
         logger.info("[TEST FINISHED]" + "\n");

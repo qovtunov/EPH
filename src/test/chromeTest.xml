@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="ChromeTest">
-    <test name="Large1200_1599px">
+<suite name="ChromeTest" preserve-order="true">
+    <test name="Large1200_1599px" preserve-order="true">
         <parameter name="x" value="1200"></parameter>
         <parameter name="y" value="1599"></parameter>
         <groups>
@@ -23,7 +23,7 @@
         </classes>
     </test>
 
-    <test name="Medium992_1199px">
+    <test name="Medium992_1199px" preserve-order="true">
         <parameter name="x" value="992"></parameter>
         <parameter name="y" value="1199"></parameter>
         <groups>
