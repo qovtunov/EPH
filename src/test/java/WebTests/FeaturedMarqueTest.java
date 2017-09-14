@@ -27,6 +27,7 @@ public class FeaturedMarqueTest extends MainTestWeb {
     public void playButtonOpacity() {
         waitForElement(featuredMarque.playButton);
         hoverOverElement(featuredMarque.playButton);
+        logger.finer("Hover in action");
         Assert.assertEquals(featuredMarque.playButton.getCssValue("opacity"), "0.6"); // opacity check
     }
 

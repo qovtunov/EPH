@@ -11,7 +11,6 @@ import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 
 public class MainTestWeb extends MainMethods {
 
@@ -60,7 +59,7 @@ public class MainTestWeb extends MainMethods {
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxLinux));
         }else if (operationSystem.contains("mac")) {
             System.setProperty("webdriver.gecko.driver", String.valueOf(driverFirefoxMac));
-            options.setBinary("PLEASE INSERT FF LAUNCHER HERE");
+            options.setBinary("/Applications/Firefox.app/Contents/MacOS/firefox-bin");
         }
 
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
